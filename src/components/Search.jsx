@@ -1,7 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import * as BooksAPI from "../BooksAPI";
+import Book from "./Book";
 
 export default function Search() {
+  const [searchText, setSearchText] = useState("");
+  const [searchData, setSearchData] = useState([]);
+
+  const SearchUpdate = () => {
+    BooksAPI.search(searchText)
+      .then((response) => {
+        console.log(response);
+        response.error ? setSearchData([]) : setSearchData(response);
+      })
+      .catch((er) => {
+        console.log(er);
+      });
+  };
+
   return (
     <div className="search-books">
       <div className="search-books-bar">
@@ -18,11 +34,31 @@ export default function Search() {
             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
             you don't find a specific author or title. Every search is limited by search terms.
           */}
-          <input type="text" placeholder="Search by title or author" />
+          <input
+            type="text"
+            placeholder="Search by title or author"
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            onKeyUp={SearchUpdate}
+          />
         </div>
+        <button onClick={() => console.log(searchText)} />
+        <button onClick={() => console.log(searchData)} />
       </div>
       <div className="search-books-results">
-        <ol className="books-grid" />
+        <ol className="books-grid">
+          {searchData
+            ? searchData.map((book, key) => (
+                <Book
+                  key={key}
+                  BGImg={book.imageLinks.thumbnail}
+                  title={book.title}
+                  author={book.authors}
+                />
+              ))
+            : null}
+        </ol>
       </div>
     </div>
   );
