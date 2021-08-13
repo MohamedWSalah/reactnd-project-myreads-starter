@@ -1,6 +1,7 @@
 import React, { useReact } from "react";
 import { Link } from "react-router-dom";
 export default function MainPage() {
+  const shelf = [{ title: "", bgimg: "", authors: "" || [] }];
   return (
     <div className="list-books">
       <div className="list-books-title">

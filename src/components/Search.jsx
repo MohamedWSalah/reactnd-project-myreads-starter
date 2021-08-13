@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
+import { AppContext } from "../Context";
 
 export default function Search() {
-  const [searchText, setSearchText] = useState("");
-  const [searchData, setSearchData] = useState([]);
+  const [searchData, setSearchData] = useContext(AppContext);
+  console.log(searchData);
 
-  const SearchUpdate = () => {
-    BooksAPI.search(searchText)
-      .then((response) => {
-        console.log(response);
-        response.error ? setSearchData([]) : setSearchData(response);
-      })
-      .catch((er) => {
-        console.log(er);
-      });
+  const SearchUpdate = (searchText) => {
+    searchText.length !== 0
+      ? BooksAPI.search(searchText)
+          .then((response) => {
+            response.error ? setSearchData([]) : setSearchData(response);
+          })
+          .catch((er) => console.log(er))
+      : setSearchData([]);
   };
 
   return (
@@ -38,26 +38,21 @@ export default function Search() {
             type="text"
             placeholder="Search by title or author"
             onChange={(e) => {
-              setSearchText(e.target.value);
+              SearchUpdate(e.target.value);
             }}
-            onKeyUp={SearchUpdate}
           />
         </div>
-        <button onClick={() => console.log(searchText)} />
-        <button onClick={() => console.log(searchData)} />
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {searchData
-            ? searchData.map((book, key) => (
-                <Book
-                  key={key}
-                  BGImg={book.imageLinks.thumbnail}
-                  title={book.title}
-                  author={book.authors}
-                />
-              ))
-            : null}
+          {searchData?.map((book, key) => (
+            <Book
+              key={key}
+              BGImg={book?.imageLinks?.thumbnail}
+              title={book?.title}
+              author={book?.authors}
+            />
+          ))}
         </ol>
       </div>
     </div>
