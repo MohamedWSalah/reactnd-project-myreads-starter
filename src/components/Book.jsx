@@ -1,8 +1,7 @@
 import React from "react";
 
 export default function Book(props) {
-  const { BGImg, title, author } = props;
-
+  const { BGImg, title, author, shelf } = props;
   return (
     <li>
       <div className="book">
@@ -16,13 +15,13 @@ export default function Book(props) {
             }}
           />
           <div className="book-shelf-changer">
-            <select>
+            <select className="select-css" value={shelf}>
               <option value="move" disabled>
                 Move to...
               </option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
+              <option value="Currently Reading">Currently Reading</option>
+              <option value="Want to Read">Want to Read</option>
+              <option value="Read">Read</option>
               <option value="none">None</option>
             </select>
           </div>
