@@ -1,10 +1,15 @@
-import React, { useReact } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { myBooks } from "./myBooks";
 import Book from "./components/Book";
+import { AppContext } from "./Context";
+
 export default function MainPage() {
+  const { searchDataCTX, myBooksCTX } = useContext(AppContext);
+  const [searchData, setSearchData] = searchDataCTX;
+  const [myBooks, setMyBooks] = myBooksCTX;
   return (
     <div className="list-books">
+      <button onClick={() => console.log(myBooks)}>SSS</button>
       <div className="list-books-title">
         <h1>MyReads</h1>
       </div>
@@ -23,6 +28,7 @@ export default function MainPage() {
                       title={book.title}
                       author={book.authors}
                       shelf={book.shelf}
+                      book={book}
                     ></Book>
                   ))}
               </ol>
@@ -41,6 +47,7 @@ export default function MainPage() {
                       title={book.title}
                       author={book.authors}
                       shelf={book.shelf}
+                      book={book}
                     ></Book>
                   ))}
               </ol>
@@ -59,6 +66,7 @@ export default function MainPage() {
                       title={book.title}
                       author={book.authors}
                       shelf={book.shelf}
+                      book={book}
                     ></Book>
                   ))}
               </ol>
