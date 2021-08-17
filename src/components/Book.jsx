@@ -14,18 +14,21 @@ export default function Book(props) {
       let newBook = {
         title: searchResultBook.title,
         bgimg: searchResultBook.imageLinks?.thumbnail,
-        author: book?.authors,
+        authors: searchResultBook?.authors,
         shelf: e.target.value,
       };
       console.log(newBook);
       setMyBooks([...myBooks, newBook]);
-
-      console.log("NEW BOOK");
+      console.log("New book added to mybooks.");
       console.log(myBooks);
+    } else if (e.target.value === "none") {
+      setMyBooks(myBooks.filter((b) => b.title !== book.title));
+      console.log("Book removed sucessfully");
     } else {
+      console.log(book);
       book.shelf = e.target.value;
       setMyBooks([...myBooks], [book]);
-      console.log("SHELF ELSE");
+      console.log(`Book ${book.title} moved to ${e.target.value} shelf`);
     }
   };
 
@@ -44,7 +47,7 @@ export default function Book(props) {
           <div className="book-shelf-changer">
             <select
               className="select-css"
-              value={shelf}
+              value={shelf || "none"}
               onChange={(e) => handleChange(e)}
             >
               <option value="move" disabled>

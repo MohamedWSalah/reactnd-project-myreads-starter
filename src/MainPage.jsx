@@ -7,6 +7,7 @@ export default function MainPage() {
   const { searchDataCTX, myBooksCTX } = useContext(AppContext);
   const [searchData, setSearchData] = searchDataCTX;
   const [myBooks, setMyBooks] = myBooksCTX;
+
   return (
     <div className="list-books">
       <button onClick={() => console.log(myBooks)}>SSS</button>
