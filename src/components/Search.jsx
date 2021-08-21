@@ -33,16 +33,7 @@ export default function Search() {
   const ExistedBook = (book, key) => {
     var bookIndex = myBooks.findIndex((i) => book.title === i.title);
     console.log("INCLUDED", bookIndex, " asda ", myBooks[bookIndex]);
-    return (
-      <Book
-        key={myBooks[bookIndex].title}
-        BGImg={myBooks[bookIndex]?.bgimg}
-        title={myBooks[bookIndex].title}
-        author={myBooks[bookIndex]?.authors}
-        shelf={myBooks[bookIndex]?.shelf}
-        book={myBooks[bookIndex]}
-      />
-    );
+    return <Book book={myBooks[bookIndex]} />;
   };
 
   return (
@@ -75,13 +66,7 @@ export default function Search() {
             myBooks.some((b) => b.title === book.title) ? (
               ExistedBook(book)
             ) : (
-              <Book
-                key={book.title}
-                BGImg={book?.imageLinks?.thumbnail}
-                title={book?.title}
-                author={book?.authors}
-                searchResultBook={book}
-              />
+              <Book book={book} />
             )
           )}
         </ol>

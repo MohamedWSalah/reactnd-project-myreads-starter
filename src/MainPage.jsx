@@ -8,6 +8,11 @@ export default function MainPage() {
   const [searchData, setSearchData] = searchDataCTX;
   const [myBooks, setMyBooks] = myBooksCTX;
 
+  const BooksRendering = (shelf) => {
+    return myBooks
+      .filter((book) => book.shelf === shelf)
+      .map((book) => <Book key={book.title} book={book}></Book>);
+  };
   return (
     <div className="list-books">
       <button onClick={() => console.log(myBooks)}>SSS</button>
@@ -20,57 +25,20 @@ export default function MainPage() {
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {myBooks
-                  .filter((book) => book.shelf === "Currently Reading")
-                  .map((book) => (
-                    <Book
-                      key={book.title}
-                      BGImg={book.bgimg}
-                      title={book.title}
-                      author={book.authors}
-                      shelf={book.shelf}
-                      book={book}
-                    ></Book>
-                  ))}
+                {BooksRendering("Currently Reading")}
               </ol>
             </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Want to Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">
-                {myBooks
-                  .filter((book) => book.shelf === "Want to Read")
-                  .map((book) => (
-                    <Book
-                      key={book.title}
-                      BGImg={book.bgimg}
-                      title={book.title}
-                      author={book.authors}
-                      shelf={book.shelf}
-                      book={book}
-                    ></Book>
-                  ))}
-              </ol>
+              <ol className="books-grid">{BooksRendering("Want to Read")}</ol>
             </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">
-                {myBooks
-                  .filter((book) => book.shelf === "Read")
-                  .map((book) => (
-                    <Book
-                      key={book.title}
-                      BGImg={book.bgimg}
-                      title={book.title}
-                      author={book.authors}
-                      shelf={book.shelf}
-                      book={book}
-                    ></Book>
-                  ))}
-              </ol>
+              <ol className="books-grid">{BooksRendering("Read")}</ol>
             </div>
           </div>
         </div>

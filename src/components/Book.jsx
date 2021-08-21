@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../Context";
 
 export default function Book(props) {
-  const { BGImg, title, author, shelf, searchResultBook, book } = props;
+  const { searchResultBook, book } = props;
 
   const { searchDataCTX, myBooksCTX } = useContext(AppContext);
   const [searchData, setSearchData] = searchDataCTX;
@@ -10,11 +10,11 @@ export default function Book(props) {
 
   const handleChange = (e) => {
     //to add new book from search results
-    if (searchResultBook) {
+    if (!myBooks.some((b) => b.title === book.title)) {
       let newBook = {
-        title: searchResultBook.title,
-        bgimg: searchResultBook.imageLinks?.thumbnail,
-        authors: searchResultBook?.authors,
+        title: book.title,
+        imageLinks: { thumbnail: book.imageLinks?.thumbnail },
+        authors: book?.authors,
         shelf: e.target.value,
       };
       console.log(newBook);
@@ -41,13 +41,13 @@ export default function Book(props) {
             style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${BGImg})`,
+              backgroundImage: `url(${book.imageLinks?.thumbnail})`,
             }}
           />
           <div className="book-shelf-changer">
             <select
               className="select-css"
-              value={shelf || "none"}
+              value={book.shelf || "none"}
               onChange={(e) => handleChange(e)}
             >
               <option value="move" disabled>
@@ -60,8 +60,8 @@ export default function Book(props) {
             </select>
           </div>
         </div>
-        <div className="book-title">{title}</div>
-        <div className="book-authors">{author}</div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     </li>
   );
