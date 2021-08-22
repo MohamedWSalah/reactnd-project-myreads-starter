@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Book from "./components/Book";
 import { AppContext } from "./Context";
 
 export default function MainPage() {
-  const { searchDataCTX, myBooksCTX } = useContext(AppContext);
-  const [searchData, setSearchData] = searchDataCTX;
-  const [myBooks, setMyBooks] = myBooksCTX;
+  const { myBooksCTX } = useContext(AppContext);
+
+  const [myBooks] = myBooksCTX;
 
   const BooksRendering = (shelf) => {
     return myBooks
@@ -44,7 +44,7 @@ export default function MainPage() {
         </div>
       </div>
       <div className="open-search">
-        <Link className="open-search-link" to="/create">
+        <Link className="open-search-link" to="/search">
           Add a book
         </Link>
       </div>

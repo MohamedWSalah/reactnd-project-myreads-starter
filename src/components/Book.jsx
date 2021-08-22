@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { AppContext } from "../Context";
 
 export default function Book(props) {
-  const { searchResultBook, book } = props;
+  const { book, exists } = props;
 
-  const { searchDataCTX, myBooksCTX } = useContext(AppContext);
-  const [searchData, setSearchData] = searchDataCTX;
+  const { myBooksCTX } = useContext(AppContext);
+
   const [myBooks, setMyBooks] = myBooksCTX;
 
   const handleChange = (e) => {
@@ -17,10 +17,8 @@ export default function Book(props) {
         authors: book?.authors,
         shelf: e.target.value,
       };
-      console.log(newBook);
       setMyBooks([...myBooks, newBook]);
       console.log("New book added to mybooks.");
-      console.log(myBooks);
     } else if (e.target.value === "none") {
       setMyBooks(myBooks.filter((b) => b.title !== book.title));
       console.log("Book removed sucessfully");
@@ -42,6 +40,7 @@ export default function Book(props) {
               width: 128,
               height: 193,
               backgroundImage: `url(${book.imageLinks?.thumbnail})`,
+              border: exists ? "2px solid red" : null,
             }}
           />
           <div className="book-shelf-changer">

@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import * as BooksAPI from "./BooksAPI";
-import { Link } from "react-router-dom";
-import { Route } from "react-router-dom";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 import { AppProvider } from "./Context.js";
 import Search from "./components/Search";
 import MainPage from "./MainPage";
+import NotFound from "./components/NotFound";
 import "./App.css";
 
 export default function BooksApp() {
-  const [showSearchPage, setShowSearchPage] = useState(false);
   return (
     <AppProvider>
       <div className="app">
-        <Route exact path="/" component={MainPage} />
-        <Route path="/create" component={Search} />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/search" component={Search} />
+          <Route render={NotFound} />
+        </Switch>
       </div>
     </AppProvider>
   );

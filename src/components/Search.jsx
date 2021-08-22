@@ -1,17 +1,13 @@
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
 import { AppContext } from "../Context";
-import debounce from "lodash.debounce";
 
 export default function Search() {
   const { searchDataCTX, myBooksCTX } = useContext(AppContext);
   const [searchData, setSearchData] = searchDataCTX;
-  const [myBooks, setMyBooks] = myBooksCTX;
-
-  console.log(searchData);
-  console.log(myBooks);
+  const [myBooks] = myBooksCTX;
 
   const [searchError, setSearchError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,10 +27,10 @@ export default function Search() {
   };
 
   //Function to render already existing books from myBooks instead of the API
-  const ExistedBook = (book, key) => {
+  const ExistedBook = (book) => {
     var bookIndex = myBooks.findIndex((i) => book.title === i.title);
-    console.log("INCLUDED", bookIndex, " asda ", myBooks[bookIndex]);
-    return <Book book={myBooks[bookIndex]} />;
+
+    return <Book key={book.title} book={myBooks[bookIndex]} exists={true} />;
   };
 
   return (
@@ -66,7 +62,7 @@ export default function Search() {
             myBooks.some((b) => b.title === book.title) ? (
               ExistedBook(book)
             ) : (
-              <Book book={book} />
+              <Book key={book.title} book={book} />
             )
           )}
         </ol>

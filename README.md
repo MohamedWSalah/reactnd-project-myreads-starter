@@ -25,6 +25,8 @@ Then you can add books to your own library from the search results by pressing o
 
 Note: The existing books, if it appeared in the results, u will be able to change its shelf too, and it will display in which shelf it already is.
 
+Already existing books from the search will have a red border around the thumbnail.
+
 #### Important
 
 This project is an assignment made by udacity for The advanced web track.
