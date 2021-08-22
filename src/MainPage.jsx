@@ -13,9 +13,9 @@ export default function MainPage() {
       .filter((book) => book.shelf === shelf)
       .map((book) => <Book key={book.title} book={book}></Book>);
   };
+
   return (
     <div className="list-books">
-      <button onClick={() => console.log(myBooks)}>SSS</button>
       <div className="list-books-title">
         <h1>MyReads</h1>
       </div>

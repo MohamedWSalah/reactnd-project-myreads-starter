@@ -1,8 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
 import Book from "./Book";
 import { AppContext } from "../Context";
+import debounce from "lodash.debounce";
 
 export default function Search() {
   const { searchDataCTX, myBooksCTX } = useContext(AppContext);
@@ -42,7 +43,6 @@ export default function Search() {
         <Link className="close-search" to="/" onClick={() => setSearchData([])}>
           My Books
         </Link>
-        <button onClick={() => console.log(myBooks)}>SSS</button>
         <div className="search-books-input-wrapper">
           <input
             type="text"
