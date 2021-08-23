@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AppContext } from "../Context";
+import * as BooksAPI from "../BooksAPI";
 
 export default function Book(props) {
   const { book, exists } = props;
@@ -10,6 +11,8 @@ export default function Book(props) {
 
   const handleChange = (e) => {
     //to add new book from search results
+    BooksAPI.update(book, e.target.value);
+
     if (!myBooks.some((b) => b.title === book.title)) {
       let newBook = {
         title: book.title,
@@ -23,7 +26,6 @@ export default function Book(props) {
       setMyBooks(myBooks.filter((b) => b.title !== book.title));
       console.log("Book removed sucessfully");
     } else {
-      console.log(book);
       book.shelf = e.target.value;
       setMyBooks([...myBooks], [book]);
       console.log(`Book ${book.title} moved to ${e.target.value} shelf`);
@@ -52,9 +54,9 @@ export default function Book(props) {
               <option value="move" disabled>
                 Move to...
               </option>
-              <option value="Currently Reading">Currently Reading</option>
-              <option value="Want to Read">Want to Read</option>
-              <option value="Read">Read</option>
+              <option value="currentlyReading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+              <option value="read">Read</option>
               <option value="none">None</option>
             </select>
           </div>

@@ -30,7 +30,7 @@ export default function Search() {
   const ExistedBook = (book) => {
     var bookIndex = myBooks.findIndex((i) => book.title === i.title);
 
-    return <Book key={book.title} book={myBooks[bookIndex]} exists={true} />;
+    return <Book key={book.id} book={myBooks[bookIndex]} exists={true} />;
   };
 
   return (
@@ -62,7 +62,7 @@ export default function Search() {
             myBooks.some((b) => b.title === book.title) ? (
               ExistedBook(book)
             ) : (
-              <Book key={book.title} book={book} />
+              <Book key={book.id} book={book} />
             )
           )}
         </ol>

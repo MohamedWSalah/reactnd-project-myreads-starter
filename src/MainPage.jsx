@@ -5,13 +5,14 @@ import { AppContext } from "./Context";
 
 export default function MainPage() {
   const { myBooksCTX } = useContext(AppContext);
-
   const [myBooks] = myBooksCTX;
 
   const BooksRendering = (shelf) => {
-    return myBooks
-      .filter((book) => book.shelf === shelf)
-      .map((book) => <Book key={book.title} book={book}></Book>);
+    if (myBooks.length === 0) return <div className="loading"></div>;
+    else
+      return myBooks
+        .filter((book) => book.shelf === shelf)
+        .map((book) => <Book key={book.title} book={book}></Book>);
   };
 
   return (
@@ -25,20 +26,20 @@ export default function MainPage() {
             <h2 className="bookshelf-title">Currently Reading</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {BooksRendering("Currently Reading")}
+                {BooksRendering("currentlyReading")}
               </ol>
             </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Want to Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">{BooksRendering("Want to Read")}</ol>
+              <ol className="books-grid">{BooksRendering("wantToRead")}</ol>
             </div>
           </div>
           <div className="bookshelf">
             <h2 className="bookshelf-title">Read</h2>
             <div className="bookshelf-books">
-              <ol className="books-grid">{BooksRendering("Read")}</ol>
+              <ol className="books-grid">{BooksRendering("read")}</ol>
             </div>
           </div>
         </div>
